@@ -47,7 +47,7 @@ on:
 
 jobs:
   build:
-    runs-on: Debian-latest
+    runs-on: Ubuntu-18.04
     if: github.event.repository.owner.id == github.event.sender.id
     steps:
     - uses: actions/checkout@v3
