@@ -114,10 +114,10 @@ jobs:
     - name: Build kernel
       run: |
         cd $GITHUB_WORKSPACE/kernel_workspace/android-kernel
-        export PATH=$GITHUB_WORKSPACE/kernel_workspace/tools/gcc/linux-x86/aarch64/aarch64-linux-android-4.9/bin:$PATH
-        export PATH=$GITHUB_WORKSPACE/kernel_workspace/tools/gcc/linux-x86/arm/arm-linux-androideabi-4.9/bin:$PATH
-        export PATH=$GITHUB_WORKSPACE/kernel_workspace/tools/clang/host/linux-x86/clang-r428724/bin:$PATH
-        export LD_LIBRARY_PATH=$GITHUB_WORKSPACE/kernel_workspace/tools/clang/host/linux-x86/clang-r428724/lib64:$LD_LIBRARY_PATH
+        export PATH=$GITHUB_WORKSPACE/kernel_workspace/android-kernel/tools/gcc/linux-x86/aarch64/aarch64-linux-android-4.9/bin:$PATH
+        export PATH=$GITHUB_WORKSPACE/kernel_workspace/android-kernel/tools/gcc/linux-x86/arm/arm-linux-androideabi-4.9/bin:$PATH
+        export PATH=$GITHUB_WORKSPACE/kernel_workspace/android-kernel/tools/clang/host/linux-x86/clang-r428724/bin:$PATH
+        export LD_LIBRARY_PATH=$GITHUB_WORKSPACE/kernel_workspace/android-kernel/tools/clang/host/linux-x86/clang-r428724/lib64:$LD_LIBRARY_PATH
         export KBUILD_BUILD_HOST=Github-Action
         export KBUILD_BUILD_USER=$(echo ${{ github.actor }} | tr A-Z a-z)
         $	export ARCH=arm64
