@@ -85,15 +85,8 @@ jobs:
     - name: Download Clang-aosp and Gcc-aosp
       run: |
         cd $GITHUB_WORKSPACE && mkdir kernel_workspace && cd kernel_workspace
-        mkdir clang-aosp
-        wget https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86/+archive/refs/heads/master-kernel-build-2022/clang-${{ env.CLANG_VERSION }}.tar.gz
-        tar -C clang-aosp/ -zxvf clang-${{ env.CLANG_VERSION }}.tar.gz
-        mkdir gcc-aosp
-        wget https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9/+archive/refs/tags/android-11.0.0_r35.tar.gz
-        tar -C gcc-aosp/ -zxvf android-11.0.0_r35.tar.gz
-        rm -rf android-11.0.0_r35.tar.gz
-        wget https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9/+archive/refs/tags/android-11.0.0_r35.tar.gz
-        tar -C gcc-aosp/ -zxvf android-11.0.0_r35.tar.gz
+        mkdir tools
+        git clone --depth=1 https://github.com/pkm774/android-kernel-tools.git tools
 
     - name: Download kernel source
       run: |
@@ -121,9 +114,17 @@ jobs:
     - name: Build kernel
       run: |
         cd $GITHUB_WORKSPACE/kernel_workspace/android-kernel
-        export PATH=$GITHUB_WORKSPACE/kernel_workspace/clang-aosp/bin:$PATH
+        export PATH=$GITHUB_WORKSPACE/kernel_workspace/tools/gcc/linux-x86/aarch64/aarch64-linux-android-4.9/bin:$PATH
+        export PATH=$GITHUB_WORKSPACE/kernel_workspace/tools/gcc/linux-x86/arm/arm-linux-androideabi-4.9/bin:$PATH
+        export PATH=$GITHUB_WORKSPACE/kernel_workspace/tools/clang/host/linux-x86/clang-r428724/bin:$PATH
+        export LD_LIBRARY_PATH=$GITHUB_WORKSPACE/kernel_workspace/tools/clang/host/linux-x86/clang-r428724/lib64:$LD_LIBRARY_PATH
         export KBUILD_BUILD_HOST=Github-Action
         export KBUILD_BUILD_USER=$(echo ${{ github.actor }} | tr A-Z a-z)
+        $	export ARCH=arm64
+        export SUBARCH=ARM64
+        export CLANG_TRIPLE=aarch64-linux-gnu-
+        export CROSS_COMPILE=aarch64-linux-android-
+        export CROSS_COMPILE_ARM32=arm-linux-androideabi-
         make -j$(nproc --all) O=out ARCH=arm64 CLANG_TRIPLE=aarch64-linux-gnu- CROSS_COMPILE=$GITHUB_WORKSPACE/kernel_workspace/gcc-aosp/bin/aarch64-linux-android- CROSS_COMPILE_ARM32=$GITHUB_WORKSPACE/kernel_workspace/gcc-aosp/bin/arm-linux-androideabi- CC=clang ${{ env.BUILD_EXTRA_COMMAND }} ${{ env.KERNEL_DEFCONFIG }}
         make -j$(nproc --all) O=out ARCH=arm64 CLANG_TRIPLE=aarch64-linux-gnu- CROSS_COMPILE=$GITHUB_WORKSPACE/kernel_workspace/gcc-aosp/bin/aarch64-linux-android- CROSS_COMPILE_ARM32=$GITHUB_WORKSPACE/kernel_workspace/gcc-aosp/bin/arm-linux-androideabi- CC=clang ${{ env.BUILD_EXTRA_COMMAND }}
 
