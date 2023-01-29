@@ -27,7 +27,7 @@ on:
         default: 'r450784d'
       BUILD_EXTRA_COMMAND:
         description: 'Extra build commands(e.g. LLVM=1 LLVM_IAS=1)'
-        required: false
+        required: true
         default: 'LD=ld.lld'
       DISABLE-LTO:
         description: 'Disable LTO'
