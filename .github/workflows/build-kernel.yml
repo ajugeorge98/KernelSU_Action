@@ -16,7 +16,7 @@ on:
       KERNEL_DEFCONFIG:
         description: 'Defconfig'
         required: true
-        default: 'asus/X00TD_defconfig'
+        default: 'X00TD_defconfig'
       KERNEL_FILE:
         description: 'Your kernel out image name'
         required: true
