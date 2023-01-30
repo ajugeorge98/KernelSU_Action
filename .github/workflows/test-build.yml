@@ -112,6 +112,7 @@ jobs:
     - name: Build kernel
       run: |
         cd $GITHUB_WORKSPACE/kernel_workspace/android-kernel
+        chmod +x compile.sh
         bash compile.sh
     - name: Make Anykernel for your kernel
       run: |
