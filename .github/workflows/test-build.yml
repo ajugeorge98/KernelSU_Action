@@ -112,19 +112,7 @@ jobs:
     - name: Build kernel
       run: |
         cd $GITHUB_WORKSPACE/kernel_workspace/android-kernel
-        export PATH=$GITHUB_WORKSPACE/kernel_workspace/tools/gcc/linux-x86/aarch64/aarch64-linux-android-4.9/bin:$PATH
-        export PATH=$GITHUB_WORKSPACE/kernel_workspace/tools/gcc/linux-x86/arm/arm-linux-androideabi-4.9/bin:$PATH
-        export PATH=$GITHUB_WORKSPACE/kernel_workspace/tools/clang/host/linux-x86/clang-r428724/bin:$PATH
-        export LD_LIBRARY_PATH=$GITHUB_WORKSPACE/kernel_workspace//tools/clang/host/linux-x86/clang-r428724/lib64:$LD_LIBRARY_PATH
-        export ARCH=arm64
-        export SUBARCH=arm64
-        export CLANG_TRIPLE=aarch64-linux-gnu-
-        export CROSS_COMPILE=aarch64-linux-android-
-        export CROSS_COMPILE_ARM32=arm-linux-androideabi-
-        make CC=clang O=out ${{ env.KERNEL_DEFCONFIG }}
-        make O=out clean mrproper	CC=clang AR=llvm-ar NM=llvm-nm OBJCOPY=llvm-objcopy OBJDUMP=llvm-objdump	READELF=llvm-readelf OBJSIZE=llvm-size STRIP=llvm-strip HOSTCC=clang HOSTCXX=clang++ ${{ env.KERNEL_DEFCONFIG }}
-        make O=out CC=clang AR=llvm-ar NM=llvm-nm OBJCOPY=llvm-objcopy OBJDUMP=llvm-objdump	READELF=llvm-readelf OBJSIZE=llvm-size STRIP=llvm-strip HOSTCC=clang HOSTCXX=clang++ -j$(nproc --all)
-   
+        bash compile.sh
     - name: Make Anykernel for your kernel
       run: |
         cd $GITHUB_WORKSPACE/kernel_workspace
@@ -132,9 +120,9 @@ jobs:
         sed -i 's/do.devicecheck=1/do.devicecheck=0/g' AnyKernel3/anykernel.sh
         sed -i 's!block=/dev/block/platform/omap/omap_hsmmc.0/by-name/boot;!block=auto;!g' AnyKernel3/anykernel.sh
         sed -i 's/is_slot_device=0;/is_slot_device=auto;/g' AnyKernel3/anykernel.sh
-        cp android-kernel/out/arch/arm64/boot/${{ env.KERNEL_FILE }} AnyKernel3/
-        cp android-kernel/out/arch/arm64/boot/dtbo.img AnyKernel3/
-        cp android-kernel/out/arch/arm64/boot/dtb AnyKernel3/
+        cp android-kernel/out/outputs/x3pro/${{ env.KERNEL_FILE }} AnyKernel3/
+        cp android-kernel/out/outputs/x3pro/dtbo.img AnyKernel3/
+        cp android-kernel/out/outputs/x3pro/dtb AnyKernel3/
         rm -rf AnyKernel3/.git* AnyKernel3/README.md
 
     - name: Upload AnyKernel3
