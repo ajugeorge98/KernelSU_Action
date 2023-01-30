@@ -117,19 +117,19 @@ jobs:
     - name: Make Anykernel for your kernel
       run: |
         cd $GITHUB_WORKSPACE/kernel_workspace
-        git clone https://github.com/ajugeorge98/Anykernel3_vayu.git
-        sed -i 's/do.devicecheck=1/do.devicecheck=0/g' AnyKernel3/anykernel.sh
-        sed -i 's!block=/dev/block/platform/omap/omap_hsmmc.0/by-name/boot;!block=auto;!g' AnyKernel3/anykernel.sh
-        sed -i 's/is_slot_device=0;/is_slot_device=auto;/g' AnyKernel3/anykernel.sh
-        cp android-kernel/out/outputs/x3pro/${{ env.KERNEL_FILE }} AnyKernel3/
-        cp android-kernel/out/outputs/x3pro/dtbo.img AnyKernel3/
-        cp android-kernel/out/outputs/dtbo-miui.img AnyKernel3/
-        cp android-kernel/out/outputs/x3pro/dtb AnyKernel3/
-        rm -rf AnyKernel3/.git* AnyKernel3/README.md
+        git clone https://github.com/ajugeorge98/Anykernel.git
+        sed -i 's/do.devicecheck=1/do.devicecheck=0/g' AnyKernel/anykernel.sh
+        sed -i 's!block=/dev/block/platform/omap/omap_hsmmc.0/by-name/boot;!block=auto;!g' AnyKernel/anykernel.sh
+        sed -i 's/is_slot_device=0;/is_slot_device=auto;/g' AnyKernel/anykernel.sh
+        cp android-kernel/out/outputs/x3pro/${{ env.KERNEL_FILE }} AnyKernel/
+        cp android-kernel/out/outputs/x3pro/dtbo.img AnyKernel/
+        cp android-kernel/out/outputs/dtbo-miui.img AnyKernel/
+        cp android-kernel/out/outputs/x3pro/dtb AnyKernel/
+        rm -rf AnyKernel/.git* AnyKernel/README.md
 
-    - name: Upload AnyKernel3
+    - name: Upload AnyKernel
       uses: actions/upload-artifact@v3
       with:
-        name: AnyKernel3-KernelSU-${{ env.DEVICE }}-${{ env.BUILD_TIME }}
-        path: kernel_workspace/AnyKernel3/*
+        name: AnyKernel-KernelSU-${{ env.DEVICE }}-${{ env.BUILD_TIME }}
+        path: kernel_workspace/AnyKernel/*
 
