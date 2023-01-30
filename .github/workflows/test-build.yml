@@ -20,7 +20,7 @@ on:
       KERNEL_FILE:
         description: 'Your kernel out image name'
         required: true
-        default: 'Image.gz-dtb'
+        default: 'Image.gz'
       CLANG_VERSION:
         description: 'Clang version'
         required: true
@@ -133,6 +133,8 @@ jobs:
         sed -i 's!block=/dev/block/platform/omap/omap_hsmmc.0/by-name/boot;!block=auto;!g' AnyKernel3/anykernel.sh
         sed -i 's/is_slot_device=0;/is_slot_device=auto;/g' AnyKernel3/anykernel.sh
         cp android-kernel/out/arch/arm64/boot/${{ env.KERNEL_FILE }} AnyKernel3/
+        cp android-kernel/out/arch/arm64/boot/dtbo.img AnyKernel3/
+        cp android-kernel/out/arch/arm64/boot/dtb AnyKernel3/
         rm -rf AnyKernel3/.git* AnyKernel3/README.md
 
     - name: Upload AnyKernel3
