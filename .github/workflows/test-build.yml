@@ -8,15 +8,15 @@ on:
       KERNEL_SOURCE:
         description: 'Kernel Source'
         required: true
-        default: 'https://github.com/ajugeorge98/kernel_xiaomi_vayu.git'
+        default: 'https://github.com/ajugeorge98/lge_sm8150.git'
       KERNEL_SOURCE_BRANCH:
         description: 'Branch'
         required: true
-        default: 'tiramisu'
+        default: 'S'
       KERNEL_DEFCONFIG:
         description: 'Defconfig'
         required: true
-        default: 'vayu_defconfig'
+        default: 'dragon_flash_defconfig'
       KERNEL_FILE:
         description: 'Your kernel out image name'
         required: true
@@ -37,12 +37,12 @@ on:
       USE_KERNELSU:
         description: 'Use KernelSU'
         required: true
-        default: 'true'
+        default: 'false'
         type: boolean
       USE_KPROBES:
         description: 'Use Kprobes'
         required: false
-        default: 'true'
+        default: 'false'
         type: boolean
 
 jobs:
