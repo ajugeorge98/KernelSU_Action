@@ -131,5 +131,5 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: AnyKernel3-KernelSU-${{ env.DEVICE }}-${{ env.BUILD_TIME }}
-        path: kernel_workspace/AnyKernel/*
+        path: kernel_workspace/AnyKernel3/*
 
