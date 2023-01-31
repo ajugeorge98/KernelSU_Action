@@ -118,9 +118,7 @@ jobs:
       run: |
         cd $GITHUB_WORKSPACE/kernel_workspace
         git clone https://github.com/ajugeorge98/Anykernel.git
-        sed -i 's/do.devicecheck=1/do.devicecheck=0/g' AnyKernel/anykernel.sh
-        sed -i 's!block=/dev/block/platform/omap/omap_hsmmc.0/by-name/boot;!block=auto;!g' AnyKernel/anykernel.sh
-        sed -i 's/is_slot_device=0;/is_slot_device=auto;/g' AnyKernel/anykernel.sh
+
         cp android-kernel/out/outputs/x3pro/${{ env.KERNEL_FILE }} AnyKernel/
         cp android-kernel/out/outputs/x3pro/dtbo.img AnyKernel/
         cp android-kernel/out/outputs/dtbo-miui.img AnyKernel/
