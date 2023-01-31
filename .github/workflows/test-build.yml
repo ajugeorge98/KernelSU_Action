@@ -20,7 +20,7 @@ on:
       KERNEL_FILE:
         description: 'Your kernel out image name'
         required: true
-        default: 'Image.gz'
+        default: 'Image.gz-dtb'
       CLANG_VERSION:
         description: 'Clang version'
         required: true
