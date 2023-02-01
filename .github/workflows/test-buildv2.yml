@@ -157,7 +157,7 @@ jobs:
             echo "Build succesful"
             mkdir out/outputs && mkdir out/outputs/generic && find out/arch/arm64/boot/dts/qcom/ -name '*.dtb' -exec cat {} + >out/outputs/generic/dtb && cp out/arch/arm64/boot/dtbo.img out/outputs/generic/dtbo.img && cp out/arch/arm64/boot/${{ env.KERNEL_FILE }} out/outputs/generic/${{ env.KERNEL_FILE }}
             #MIUI dtbo
-            rm out/outputs/dtbo-miui.img
+            #rm out/outputs/dtbo-miui.img
             miui_fix_dimens
             echo | Build_lld
             if [ $? -ne 0 ]
