@@ -161,9 +161,7 @@ jobs:
             miui_fix_dimens
             echo | Build_lld
             if [ $? -ne 0 ]
-            then
-                rm out/outputs/dtbo-miui.img
-            else
+            #copying dtbo
                 cp out/arch/arm64/boot/dtbo.img out/outputs/dtbo-miui.img
             fi
             restore_dimens
